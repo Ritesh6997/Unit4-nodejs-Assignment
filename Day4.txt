@@ -1,0 +1,179 @@
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use students
+switched to db students
+> db.createCollection("user")
+{ "ok" : 1 }
+> db.studentsfind()
+uncaught exception: TypeError: db.studentsfind is not a function :
+@(shell):1:1
+> db.students.find()
+> db.user.insert({"batch":"web_15"})
+WriteResult({ "nInserted" : 1 })
+> db.students.find()
+> db.students.insertMany([{"name":"ritesh"},{"name":"sahil"},{"name":"saurabh"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("62264a6286b2101f25793b8d"),
+                ObjectId("62264a6286b2101f25793b8e"),
+                ObjectId("62264a6286b2101f25793b8f")
+        ]
+}
+> db,students.find()
+uncaught exception: ReferenceError: students is not defined :
+@(shell):1:4
+> db.students.find()
+{ "_id" : ObjectId("62264a6286b2101f25793b8d"), "name" : "ritesh" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh" }
+> db.students.insert({"name":"prajwal"})
+WriteResult({ "nInserted" : 1 })
+> db.students.update({"name":"ritesh"},{$set:{"age":24}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find({}).pretty()
+{
+        "_id" : ObjectId("62264a6286b2101f25793b8d"),
+        "name" : "ritesh",
+        "age" : 24
+}
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+> show dbs
+admin     0.000GB
+config    0.000GB
+local     0.000GB
+students  0.000GB
+> db.students.remove({"name":"ritesh"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find({})
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+> db.sstudents.insertMany({"name":"sahil"},{"name":"saurabh"},{$set {"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:66
+> db.studensts.insert({"name":"saurabh"},{$set {"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:45
+> db.students.find({})
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+> db.students.insert({"name":"saurabh"},{$set{"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:43
+> db.students.insert({"name":"saurabh"})
+WriteResult({ "nInserted" : 1 })
+> db.students.updateMany({"name":"saurbh"},{$set{"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:46
+> db.students.updateMany({"name":"saurabh"},{$set{"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:47
+> db.students.find({})
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil" }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+{ "_id" : ObjectId("62264eb686b2101f25793b91"), "name" : "saurabh" }
+> db.students.update({"name":"sahil"},{$set{"age":24}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:41
+> db.students.update({"name":"sahil"},{$set:{"age":24}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.updateMany({"name":"saurabh"},{$set:{"age":24}})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.students.update({"name":"saurabh"},{$set:{"last_name":"wadafale"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find({}).pertty()
+uncaught exception: TypeError: db.students.find(...).pertty is not a function :
+@(shell):1:1
+> db.students.find({}).pretty()
+{
+        "_id" : ObjectId("62264a6286b2101f25793b8e"),
+        "name" : "sahil",
+        "age" : 24
+}
+{
+        "_id" : ObjectId("62264a6286b2101f25793b8f"),
+        "name" : "saurabh",
+        "age" : 24,
+        "last_name" : "wadafale"
+}
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+{
+        "_id" : ObjectId("62264eb686b2101f25793b91"),
+        "name" : "saurabh",
+        "age" : 24
+}
+> db.students.insertMany([{"name":"ritesh","last_name":"mude","age":24},{"name":"jay","last_name":"sanodeya","age":23},{"name":"shivam","last_name":"arora","age":23}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6226544386b2101f25793b92"),
+                ObjectId("6226544386b2101f25793b93"),
+                ObjectId("6226544386b2101f25793b94")
+        ]
+}
+> db.students.find({}).pretty()
+{
+        "_id" : ObjectId("62264a6286b2101f25793b8e"),
+        "name" : "sahil",
+        "age" : 24
+}
+{
+        "_id" : ObjectId("62264a6286b2101f25793b8f"),
+        "name" : "saurabh",
+        "age" : 24,
+        "last_name" : "wadafale"
+}
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal" }
+{
+        "_id" : ObjectId("62264eb686b2101f25793b91"),
+        "name" : "saurabh",
+        "age" : 24
+}
+{
+        "_id" : ObjectId("6226544386b2101f25793b92"),
+        "name" : "ritesh",
+        "last_name" : "mude",
+        "age" : 24
+}
+{
+        "_id" : ObjectId("6226544386b2101f25793b93"),
+        "name" : "jay",
+        "last_name" : "sanodeya",
+        "age" : 23
+}
+{
+        "_id" : ObjectId("6226544386b2101f25793b94"),
+        "name" : "shivam",
+        "last_name" : "arora",
+        "age" : 23
+}
+> db.students.update({"name":"prajwal"},{$set{"age":23,last_name:"mude"}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:43
+> db.students.update({"name":"prajwal"},{$set:{"age":23,last_name:"mude"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find({})
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil", "age" : 24 }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh", "age" : 24, "last_name" : "wadafale" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal", "age" : 23, "last_name" : "mude" }
+{ "_id" : ObjectId("62264eb686b2101f25793b91"), "name" : "saurabh", "age" : 24 }
+{ "_id" : ObjectId("6226544386b2101f25793b92"), "name" : "ritesh", "last_name" : "mude", "age" : 24 }
+{ "_id" : ObjectId("6226544386b2101f25793b93"), "name" : "jay", "last_name" : "sanodeya", "age" : 23 }
+{ "_id" : ObjectId("6226544386b2101f25793b94"), "name" : "shivam", "last_name" : "arora", "age" : 23 }
+>> db.students.remove({name:"ritesh"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find({})
+{ "_id" : ObjectId("62264a6286b2101f25793b8e"), "name" : "sahil", "age" : 24 }
+{ "_id" : ObjectId("62264a6286b2101f25793b8f"), "name" : "saurabh", "age" : 24, "last_name" : "wadafale" }
+{ "_id" : ObjectId("62264ae086b2101f25793b90"), "name" : "prajwal", "age" : 23, "last_name" : "mude" }
+{ "_id" : ObjectId("62264eb686b2101f25793b91"), "name" : "saurabh", "age" : 24 }
+{ "_id" : ObjectId("6226544386b2101f25793b93"), "name" : "jay", "last_name" : "sanodeya", "age" : 23 }
+{ "_id" : ObjectId("6226544386b2101f25793b94"), "name" : "shivam", "last_name" : "arora", "age" : 23 }
+> db.students.find({}).pretty()
